@@ -3,9 +3,11 @@
         Simple build file to test CI in AWS
     </description>
 
-    <property name="src.dir"   location="src"   />
-    <property name="build.dir" location="build" />
-    <property name="dist.dir"  location="dist"  />
+    <property name="src.dir"            location="src"                  />
+    <property name="build.dir"          location="build"                />
+    <property name="dist.dir"           location="dist"                 />
+    <property name="liquibase.dir"      location="db/liquibase"         />
+    <property name="db.changeset.dir"   location="${liquibase.dir}/sql" />
 
     <target name="init">
         <mkdir dir="${build.dir}" />
@@ -27,6 +29,13 @@
                 <attribute name="Main-Class" value="net.foofykitty.hello.Hello" />
             </manifest>
         </jar>
+        
+        <tar 
+            destfile="${dist.dir}/db_changesets.tar" 
+            basedir="${db.changeset.dir}"
+
+
+        /> 
     </target>
 
     
