@@ -17,7 +17,7 @@ pipeline
             steps
             {
                 echo 'Collecting artifacts'
-                archiveArtifacts artifacts: 'dist/*, dist/lib/*'
+                archiveArtifacts artifacts: '**/*.jar, **/*.tar'
                     fingerprint: true,
                     onlyIfSuccessful: true
             }
