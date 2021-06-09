@@ -16,9 +16,6 @@ pipeline
             steps
             {
                 echo 'Collecting jars'
-            }
-            steps
-            {
                 echo 'Collecting DB change sets'
             }
         }
@@ -28,10 +25,6 @@ pipeline
             steps
             {
                 echo 'Running unit tests'
-            }
-
-            steps
-            {
                 echo 'Deploying CI DB changesets'
             }
         }
