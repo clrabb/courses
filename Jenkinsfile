@@ -3,11 +3,36 @@ pipeline
     agent any
     stages
     {
-        stage( 'Stage 1' )
+        stage( 'Build' )
         {
             steps
             {
-                echo 'Hello, World!'
+                echo 'Building'
+            }
+        }
+
+        stage( 'Collecting artifacts' )
+        {
+            steps
+            {
+                echo 'Collecting jars'
+            }
+            steps
+            {
+                echo 'Collecting DB change sets'
+            }
+        }
+
+        stage( 'Testing' )
+        {
+            steps
+            {
+                echo 'Running unit tests'
+            }
+
+            steps
+            {
+                echo 'Deploying CI DB changesets'
             }
         }
     }
