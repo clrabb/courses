@@ -28,7 +28,8 @@ pipeline
             steps
             {
                 echo 'Running unit tests'
-                echo 'Deploying CI DB changesets'
+                sh cd database/liquibase/sql
+                liquibase update
             }
         }
 
