@@ -16,8 +16,10 @@ pipeline
         {
             steps
             {
-                echo 'Collecting jars'
-                echo 'Collecting DB change sets'
+                echo 'Collecting artifacts'
+                archiveArtifacts artifacts dist/**
+                    fingerprint: true
+                    onlyIfSuccessful: true
             }
         }
 
