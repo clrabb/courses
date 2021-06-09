@@ -28,5 +28,16 @@ pipeline
                 echo 'Deploying CI DB changesets'
             }
         }
+
+        stage( 'Deploy' )
+        {
+            steps
+            {
+                echo 'Move jars'
+                echo 'deploy DB'
+                echo 'run smoketest'
+                echo 'Done'
+            }
+        }
     }
 }
