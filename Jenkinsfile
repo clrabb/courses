@@ -17,8 +17,8 @@ pipeline
             steps
             {
                 echo 'Collecting artifacts'
-                archiveArtifacts artifacts: 'dist/*'
-                    fingerprint: true
+                archiveArtifacts artifacts: 'dist/*',
+                    fingerprint: true,
                     onlyIfSuccessful: true
             }
         }
