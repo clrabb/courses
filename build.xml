@@ -1,7 +1,7 @@
 <project name="courses" default="dist" basedir="." 
     xmlns:liquibase="antlib:liquibase.integration.ant">
 
-    <property file="build.properties" />
+    <property file="/tmp/build.properties" />
 
     <taskdef
         resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant">
