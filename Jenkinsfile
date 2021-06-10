@@ -27,9 +27,7 @@ pipeline
         {
             steps
             {
-                echo 'Running unit tests'
-                sh 'cd db/liquibase/sql'
-                sh 'liquibase update'
+                sh 'ant db-deploy-ci'
             }
         }
 
