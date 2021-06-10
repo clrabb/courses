@@ -1,4 +1,13 @@
-<project name="courses" default="dist" basedir=".">
+<project name="courses" default="dist" basedir="." 
+    xmlns:liquibase="antlib:liquibase.integration.ant">
+
+    <property file="build.properties" />
+
+    <taskdef
+        resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant">
+        <classpath path="/;/opt/liquibase/liquibase.jar;/opt/liquibase/lib/postgresql-42.2.19.jar" />
+    </taskdef>
+
     <description>
         Simple build file to test CI in AWS
     </description>
@@ -6,8 +15,20 @@
     <property name="src.dir"            location="src"                  />
     <property name="build.dir"          location="build"                />
     <property name="dist.dir"           location="dist"                 />
-    <property name="liquibase.dir"      location="db/liquibase"         />
-    <property name="db.changeset.dir"   location="${liquibase.dir}/sql" />
+    <property name="liquibase.dir"      location="./db/liquibase"         />
+    <property name="liquibase.cs.dir"   location="${liquibase.dir}/sql" />
+    <property name="ci.db"              value="ci-db"                   />
+    <property name="ci.db.driver"       value="org.postgresql.Driver"   />
+    <property name="ci.db.url"          value="jdbc:postgresql://seth:5432/ci-idr" />
+
+    <liquibase:database
+            id="ci.db"
+            driver="${ci.db.driver}"
+            url="${ci.db.url}"
+            user="${ci.db.user}"
+            password="${ci.db.pass}" 
+            defaultSchemaName="${ci.db.schema}"
+    /> 
 
     <target name="init">
         <mkdir dir="${build.dir}" />
@@ -23,6 +44,13 @@
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
     </target>
 
+    <target name="db-deploy-ci" depends="dist">
+        <liquibase:updateDatabase 
+            databaseref="ci.db"
+            changelogfile="db.changelog-master.xml" 
+        />
+    </target>
+
     <target name="dist" depends="compile">
         <jar jarfile="${dist.dir}/lib/Hello.jar" basedir="${build.dir}">
             <manifest>
@@ -32,9 +60,7 @@
         
         <tar 
             destfile="${dist.dir}/db_changesets.tar" 
-            basedir="${db.changeset.dir}"
-
-
+            basedir="${liquibase.cs.dir}"
         /> 
     </target>
 
