@@ -1,0 +1,3 @@
+ci.db.user=<username>
+ci.db.pass=<password>
+ci.db.schema=<schema>
