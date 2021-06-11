@@ -27,6 +27,7 @@ pipeline
         {
             steps
             {
+                echo 'Deploying to CI database'
                 sh 'ant db-deploy-ci'
             }
         }
@@ -36,7 +37,8 @@ pipeline
             steps
             {
                 echo 'Move jars'
-                echo 'deploy DB'
+                echo 'deploying to DEV db'
+                sh 'ant db-deploy-dev'
                 echo 'run smoketest'
                 echo 'Done'
             }
